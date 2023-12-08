@@ -1,11 +1,11 @@
-'use client'
+'use client';
 
-import { getAllPosts } from "@/services/post";
 import { Metadata } from "next";
-import Link from "next/link";
-import { useEffect, useState } from "react";
 import Posts from "@/components/Posts";
 import { PostSearch } from "@/components/PostSearch";
+import { usePosts } from "@/store";
+import { shallow } from "zustand/shallow";
+import { useEffect } from "react";
 
 
 
@@ -16,19 +16,12 @@ export const metadata: Metadata = {
 
 
  function Blog() {
-  const [posts, setPosts] = useState<any[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
-
-  useEffect(() => {
-    getAllPosts().then(setPosts).finally(() => setLoading(false))
-  }, [])
 
     return (<>    
     <h1>Blog</h1>
-    <PostSearch onSearch={setPosts} />
-    {loading ? <h3>Loading...</h3> : 
-    <Posts posts={posts} />
-    }
+    <PostSearch />
+    <Posts/>
+    
     </> );
 }
 
